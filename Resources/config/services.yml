@@ -1,0 +1,4 @@
+services:
+    aw_collect_verified_email:
+        class: AW\Bundle\CollectVerifiedEmailBundle\Service
+        arguments: [@doctrine.orm.entity_manager, @session]

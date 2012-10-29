@@ -1,0 +1,7 @@
+aw_collect_verified_email:
+    pattern:  /awcollectverifiedemailbundle
+    defaults: { _controller: AWCollectVerifiedEmailBundle:Default:submit }
+
+aw_collect_verified_email_verify:
+    pattern:  /awcollectverifiedemailbundle/verify
+    defaults: { _controller: AWCollectVerifiedEmailBundle:Default:verify }
