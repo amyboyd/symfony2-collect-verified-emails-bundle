@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class Service
 {
+
     private $entityManager;
     private $session;
 
@@ -21,13 +22,14 @@ class Service
      */
     public function getEmailFromSession()
     {
-        $idInSession = $this->session->get('email_id');
-        if (!$idInSession) {
+        $sessionEmail = $this->session->get('collected_email');
+        if (!$sessionEmail) {
             return null;
         }
 
         return $this->entityManager
-            ->getRepository('AWCollectVerifiedEmailBundle:Email')
-            ->find($idInSession);
+                        ->getRepository('AWCollectVerifiedEmailBundle:Email')
+                        ->findOneByEmail($sessionEmail);
     }
+
 }

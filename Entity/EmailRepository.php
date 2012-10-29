@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class EmailRepository extends EntityRepository
 {
+
+    /**
+     * @param string $email
+     * @return Email or null.
+     */
+    public function findOneByEmail($email)
+    {
+        return $this->findOneBy(array('email' => $email));
+    }
+
 }

@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Email
 {
+
     /**
      * @var integer $id
      * @ORM\Column(name="id", type="bigint")
@@ -69,4 +70,5 @@ class Email
     {
         $this->verified = $verified;
     }
+
 }
