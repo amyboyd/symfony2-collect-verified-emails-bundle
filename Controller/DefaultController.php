@@ -38,7 +38,7 @@ class DefaultController extends Controller
         }
 
         // Send verification email.
-        // @todo
+        $this->sendVerificationEmail($emailObj);
 
         // Take user back to the continue URL.
         $request->getSession()->setFlash('notice', $this->get('translator')->trans('We have sent you an email - click the link inside it to verify your email address...'));
@@ -77,5 +77,24 @@ class DefaultController extends Controller
         if (!$request->get('continue')) {
             throw new \AW\Bundle\CollectVerifiedEmailBundle\Exception('No continue parameter in the request query string');
         }
+    }
+
+    private function sendVerificationEmail(Email $email)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject(
+                $this->container->getParameter('aw_collect_verified_email.email_subject')
+            )
+            ->setFrom(
+                $this->container->getParameter('aw_collect_verified_email.email_from_address'),
+                $this->container->getParameter('aw_collect_verified_email.email_from_name')
+            )
+            ->setTo($email->getEmail())
+            ->setBody($this->renderView('AWCollectVerifiedEmailBundle:Default:verification-email.txt.twig', array(
+                'email' => $email,
+                'above_link' => $this->container->getParameter('aw_collect_verified_email.email_body_above_link'),
+                'below_link' => $this->container->getParameter('aw_collect_verified_email.email_body_below_link'),
+            )));
+        $this->get('mailer')->send($message);
     }
 }

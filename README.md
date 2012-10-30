@@ -1,3 +1,9 @@
+## Requirements ##
+
+* Symfony 2.1. The bundle has not been tested in Symfony 2.0 but might work in that too.
+
+* Swiftmailer bundle must be enabled. See http://symfony.com/doc/2.0/cookbook/email/email.html
+
 ## Sample Use In A Controller Action ##
 
     $email = $this->get('aw_collect_verified_email')->getEmailFromSession();
@@ -26,6 +32,8 @@
   directory.
 
 * Enable AWCollectVerifiedEmailBundle in your `app/AppKernel.php`
+
+* Copy the contents of `Resources/config/parameters.yml.sample` to your own `app/config/parameters.yml`
 
 * Review `app/console doctrine:schema:update --dump-sql`
 

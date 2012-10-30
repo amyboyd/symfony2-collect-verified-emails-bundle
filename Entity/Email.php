@@ -68,6 +68,11 @@ class Email
         return $this->verified;
     }
 
+    public function getVerifyToken()
+    {
+        return $this->verifyToken;
+    }
+
     public function isVerifyTokenCorrect($token)
     {
         return $token === $this->verifyToken;

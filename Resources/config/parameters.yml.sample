@@ -1,0 +1,6 @@
+parameters:
+    aw_collect_verified_email.email_subject:      Verify your email address
+    aw_collect_verified_email.email_from_address: no-reply@your-site.com
+    aw_collect_verified_email.email_from_name:    Your Site
+    aw_collect_verified_email.email_body_above_link: "Welcome to our site! Please verify your email by clicking on the following link:"
+    aw_collect_verified_email.email_body_below_link: "Thanks,\nOur site name"
