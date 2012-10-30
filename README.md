@@ -1,1 +1,32 @@
-@todo
+## Sample Use In A Controller Action ##
+
+    $email = $this->get('aw_collect_verified_email')->getEmailFromSession();
+    // Email is of type \AW\Bundle\CollectVerifiedEmailBundle\Entity\Email.
+
+    if ($email && $email->getVerified()) {
+        return $this->redirect($this->generateUrl('your_page'));
+    }
+
+    $email = $request->get('email');
+    if (!$email) {
+        $this->setTranslatedFlashNotice('Please enter your email address...');
+        return $this->redirect($this->generateUrl('your_page'));
+    }
+
+    return $this->redirect($this->generateUrl(
+        'aw_collect_verified_email',
+        array('email' => $email, 'continue' => $this->generateUrl('your_page'))
+    ));
+
+## Install ##
+
+* If you use Git, run `git submodule add https://bitbucket.org/addictionworldwide/collect-verified-email-bundle-for-symfony2.git path/to/bundles/AW/Bundle/CollectVerifiedEmailBundle`
+
+* If you don't use Git, download the source and put it into your bundles
+  directory.
+
+* Enable AWCollectVerifiedEmailBundle in your `app/AppKernel.php`
+
+* Review `app/console doctrine:schema:update --dump-sql`
+
+* Run `app/console doctrine:schema:update --force` if the above was OK.
