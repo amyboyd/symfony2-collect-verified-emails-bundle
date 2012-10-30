@@ -39,11 +39,18 @@ class Email
      */
     private $verifyToken;
 
-    public function __construct($email)
+    /**
+     * @var string $continueUrl
+     * @ORM\Column(name="continue_url", type="string", length=255)
+     */
+    private $continueUrl;
+
+    public function __construct($email, $continueUrl)
     {
         $this->email = $email;
         $this->verified = false;
         $this->verifyToken = mt_srand() . sha1($email);
+        $this->continueUrl = $continueUrl;
     }
 
     public function getId()
@@ -71,4 +78,8 @@ class Email
         $this->verified = $verified;
     }
 
+    public function getContinueUrl()
+    {
+        return $this->continueUrl;
+    }
 }

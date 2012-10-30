@@ -31,7 +31,7 @@ class DefaultController extends Controller
             return $this->redirect($request->get('continue'));
         } else if (!$emailObj) {
             // Haven't seen this email address before.
-            $emailObj = new Email($email);
+            $emailObj = new Email($email, $request->get('continue'));
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($emailObj);
             $em->flush();
@@ -39,6 +39,7 @@ class DefaultController extends Controller
 
         // Send verification email.
         // @todo
+
         // Take user back to the continue URL.
         $request->getSession()->setFlash('notice', $this->get('translator')->trans('We have sent you an email - click the link inside it to verify your email address...'));
         return $this->redirect($request->get('continue'));
@@ -51,10 +52,11 @@ class DefaultController extends Controller
     public function verifyAction(Request $request)
     {
         $email = $this->getDoctrine()->getRepository('AWCollectVerifiedEmailBundle:Email')
-                ->find($request->get('id'));
+                ->find($request->get('id', -1));
+        /* @var $email Email */
 
         if (!$email) {
-            return $this->createNotFoundException();
+            throw $this->createNotFoundException();
         }
 
         if ($email->isVerifyTokenCorrect($request->get('token'))) {
@@ -62,8 +64,10 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($email);
             $em->flush();
-            return $this->render('AWCollectVerifiedEmailBundle:Default:success.html.twig', array('email' => $email));
-        } else {
+            $request->getSession()->setFlash('notice', $this->get('translator')->trans('Your email address has been verified'));
+            return $this->redirect($email->getContinueUrl());
+        }
+        else {
             return $this->render('AWCollectVerifiedEmailBundle:Default:fail.html.twig', array('email' => $email));
         }
     }
