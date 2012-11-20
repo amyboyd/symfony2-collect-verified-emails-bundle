@@ -1,5 +1,5 @@
-{{ above_link }}
+{{ above_link|raw }}
 
-{{ url('aw_collect_verified_email_verify', {'id': email.id, 'token': email.getVerifyToken()}) }}
+{{ url('aw_collect_verified_email_verify', {'id': email.id, 'token': email.getVerifyToken()})|raw }}
 
-{{ below_link }}
+{{ below_link|raw }}
