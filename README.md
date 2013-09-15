@@ -26,7 +26,7 @@
 
 ## Install ##
 
-* If you use Git, run `git submodule add https://bitbucket.org/addictionworldwide/collect-verified-email-bundle-for-symfony2.git path/to/bundles/AW/Bundle/CollectVerifiedEmailBundle`
+* If you use Git, run `git submodule add git@github.com:amyboyd/symfony2-collect-verified-emails-bundle.git path/to/bundles/AW/Bundle/CollectVerifiedEmailBundle`
 
 * If you don't use Git, download the source and put it into your bundles
   directory.
